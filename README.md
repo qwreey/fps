@@ -1,4 +1,4 @@
-# fps: File locking ProcesseS
+# fps: File locking ProcesseS (CLI version of Powertoys FileLocksmith)
 Which process using folder or file?
 
 In windows, when you move file, delete file or eject disk, probably, you can see error messgae 'File Is Open in Another Program' which very annoying.
