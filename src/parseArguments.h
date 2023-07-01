@@ -10,6 +10,11 @@ enum Filter {
 	files
 };
 
+enum OutputFormats {
+	table,
+	csv
+};
+
 class Filters {
 public:
 	bool changed = false; // if not chaged, using default option
@@ -48,6 +53,7 @@ public:
 	bool verbose = false;
 	bool showVersion = false;
 	bool count = false;
+	OutputFormats outputFormat = OutputFormats::table;
 
 	ProgramOptions() = default;
 };
@@ -69,8 +75,9 @@ const std::string HelpMessage =
 	" -f, --filter [filter,filter,...]\n"
 	"                 Use filters to show. see 'Filter options'\n"
 	" -v, --version   Show version of fps\n"
-	" -V, --verbose   Verbose mode for debugging (Not used for now)\n"
-	" -c  --count     Count number of processes and print it as last line\n"
+	" -c, --csv        Format output as csv"
+	" --count         Count number of processes and print it as last line\n"
+	" --verbose       Verbose mode for debugging (Not used for now)\n"
 	"\n"
 	"Filter options\n"
 	" pid    PID of found process.\n"

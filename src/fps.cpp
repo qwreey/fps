@@ -65,17 +65,17 @@ int main(int argc, char* argv[]) {
 			Filter filter = poptions.filters.getFilter(filterIndex++);
 			if (filter == Filter::none) break;
 			else if (filter == Filter::pid)      heading.push_back("PID");
-			else if (filter == Filter::name)     heading.push_back("Image Name");
+			else if (filter == Filter::name)     heading.push_back("ImageName");
 			else if (filter == Filter::user)     heading.push_back("User");
 			else if (filter == Filter::fullname) heading.push_back("Path");
-			else if (filter == Filter::files)    heading.push_back("Open files");
+			else if (filter == Filter::files)    heading.push_back("OpenFiles");
 		}
 		output.pushRow(heading);
 	}
 	for (ProcessResult item : result) {
 		output.pushRow(formatFindResultItem(poptions.filters,item));
 	}
-	cout << output.format();
+	cout << output.format(poptions.outputFormat == OutputFormats::csv ? FormatTypes::Csv : FormatTypes::Table);
 	if (poptions.count) cout << result.size() << "\n";
 	return (int)result.empty();
 }

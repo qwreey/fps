@@ -17,25 +17,41 @@ void MatrixPretty::pushRow(vector<string> row) {
 	matrix.push_back(row);
 }
 
-std::string MatrixPretty::format() {
+string MatrixPretty::format(FormatTypes type) {
 	string output = "";
-	int calIndex;
-	int rowIndex;
-	int rowLength = sizeToInt(matrix.size());
-	int calLength;
 
-	for (rowIndex = 0; rowIndex < rowLength; rowIndex++) {
-		vector<string> row = matrix[rowIndex];
-		calLength = sizeToInt(row.size());
-		for (calIndex = 0; calIndex < calLength; calIndex++) {
-			string item = row[calIndex];
-			output.append(item);
-			if (calIndex != calLength -1) {
-				string spaces(calsizes[calIndex] - sizeToInt(item.length()) + 1, ' ');
-				output.append(spaces);
+	switch (type) {
+	case FormatTypes::Csv:
+		for (vector<string> row : matrix) {
+			int maxIndex = row.size();
+			for (int index = 0; index < maxIndex; index++) {
+				output.append(row[index]);
+				if (index != maxIndex-1) output.append(",");
 			}
+			output.append("\n");
 		}
-		output.append("\n");
+		break;
+	case FormatTypes::Table:
+	default:
+		int calIndex;
+		int rowIndex;
+		int rowLength = sizeToInt(matrix.size());
+		int calLength;
+
+		for (rowIndex = 0; rowIndex < rowLength; rowIndex++) {
+			vector<string> row = matrix[rowIndex];
+			calLength = sizeToInt(row.size());
+			for (calIndex = 0; calIndex < calLength; calIndex++) {
+				string item = row[calIndex];
+				output.append(item);
+				if (calIndex != calLength - 1) {
+					string spaces(calsizes[calIndex] - sizeToInt(item.length()) + 1, ' ');
+					output.append(spaces);
+				}
+			}
+			output.append("\n");
+		}
+		break;
 	}
 
 	return output;

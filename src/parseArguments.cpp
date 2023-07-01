@@ -65,7 +65,7 @@ bool ProgramOptions::parseOption(string option) {
 	if (option == "headless" || option == "H") {
 		headless = true;
 	}
-	else if (option == "count" || option == "c") {
+	else if (option == "count") {
 		count = true;
 	}
 	else if (option == "all" || option == "a") {
@@ -80,11 +80,14 @@ bool ProgramOptions::parseOption(string option) {
 		isValid = false;
 		errorMessage += "Filter option -f cannot be combined with another general options.\n";
 	}
-	else if (option == "verbose" || option == "V") {
+	else if (option == "verbose") {
 		verbose = true;
 	}
 	else if (option == "version" || option == "v") {
 		showVersion = true;
+	}
+	else if (option == "csv" || option == "c") {
+		outputFormat = OutputFormats::csv;
 	}
 	else {
 		isValid = false;
