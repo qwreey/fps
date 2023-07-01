@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 	poptions.parse(arguments);
 
 	if (poptions.showVersion) {
-		cout << format("v{}\n", VERSION);
+		cout << std::format("v{}\n", VERSION);
 		return 0;
 	}
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 		if (poptions.errorMessage.empty()) {
 			cout << HelpMessage;
 		} else {
-			cerr << format("Error: commandline arguments parsing failed\n{}\nType '{} --help' to get more information", poptions.errorMessage, argv[0]);
+			cerr << std::format("Error: commandline arguments parsing failed\n{}\nType '{} --help' to get more information", poptions.errorMessage, argv[0]);
 		}
 		return 2;
 	}

@@ -17,6 +17,37 @@ void MatrixPretty::pushRow(vector<string> row) {
 	matrix.push_back(row);
 }
 
+string replace_all(
+	std::string& s,
+	std::string const& toReplace,
+	std::string const& replaceWith
+) {
+	std::string buf;
+	std::size_t pos = 0;
+	std::size_t prevPos;
+
+	// Reserves rough estimate of final size of string.
+	buf.reserve(s.size());
+
+	while (true) {
+		prevPos = pos;
+		pos = s.find(toReplace, pos);
+		if (pos == std::string::npos)
+			break;
+		buf.append(s, prevPos, pos - prevPos);
+		buf += replaceWith;
+		pos += toReplace.size();
+	}
+
+	buf.append(s, prevPos, s.size() - prevPos);
+	return buf;
+}
+
+string escapeCsvValue(string value) {
+	if (value.find_first_of("\"") == string::npos && value.find_first_of(",") == string::npos) return value;
+	return "\"" + replace_all(value,"\"", "\"\"") + "\"";
+}
+
 string MatrixPretty::format(FormatTypes type) {
 	string output = "";
 
@@ -25,7 +56,7 @@ string MatrixPretty::format(FormatTypes type) {
 		for (vector<string> row : matrix) {
 			int maxIndex = row.size();
 			for (int index = 0; index < maxIndex; index++) {
-				output.append(row[index]);
+				output.append(escapeCsvValue(row[index]));
 				if (index != maxIndex-1) output.append(",");
 			}
 			output.append("\n");
